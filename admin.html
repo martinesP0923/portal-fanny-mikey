@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Panel de locución — Departamento de Comunicaciones</title>
+<link rel="icon" href="assets/images/logo.png">
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+<header class="masthead">
+  <div class="masthead__bar">
+    <div class="masthead__brand">
+      <img src="assets/images/logo.png" alt="Escudo I.E.D. Fanny Mikey">
+      <div>
+        <div class="masthead__title">Panel de locución</div>
+        <div class="masthead__subtitle">Solo visible para presentadores</div>
+      </div>
+    </div>
+    <nav class="masthead__nav">
+      <a href="index.html">Ver sitio público</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <div class="container">
+
+    <div class="admin-topbar">
+      <h1 style="margin:0; font-size:1.5rem;">Contenidos</h1>
+      <button class="btn btn--ghost" id="logout-btn">Cerrar sesión</button>
+    </div>
+
+    <div class="admin-tabs">
+      <button data-tab="tab-emisora" class="is-active">Emisora</button>
+      <button data-tab="tab-danza">Danza y Teatro</button>
+      <button data-tab="tab-noticias">Noticias</button>
+    </div>
+
+    <!-- ============ TAB EMISORA ============ -->
+    <section id="tab-emisora" class="admin-panel is-active">
+      <h2>Qué está sonando ahora</h2>
+      <div id="np-status" class="status-banner status-banner--hidden"></div>
+      <form id="np-form" style="max-width:520px;">
+        <div class="form-row">
+          <div>
+            <label for="np_song">Canción</label>
+            <input type="text" id="np_song" placeholder="Ej: Felices los 4">
+          </div>
+          <div>
+            <label for="np_artist">Artista</label>
+            <input type="text" id="np_artist" placeholder="Ej: Maluma">
+          </div>
+        </div>
+        <button type="submit" class="btn">Actualizar "sonando ahora"</button>
+      </form>
+
+      <h2 style="margin-top:2.5rem;">Solicitudes de los estudiantes</h2>
+      <div id="requests-list"><p>Cargando…</p></div>
+    </section>
+
+    <!-- ============ TAB DANZA ============ -->
+    <section id="tab-danza" class="admin-panel">
+      <h2>Nueva publicación de Danza y Teatro</h2>
+      <div id="danza-status" class="status-banner status-banner--hidden"></div>
+      <form id="danza-form">
+        <div>
+          <label for="d_title">Título</label>
+          <input type="text" id="d_title" required>
+        </div>
+        <div>
+          <label for="d_content">Contenido</label>
+          <textarea id="d_content" required></textarea>
+        </div>
+        <div class="form-row">
+          <div>
+            <label for="d_photo">Foto (1)</label>
+            <input type="file" id="d_photo" accept="image/*">
+          </div>
+          <div>
+            <label for="d_video">Video (1)</label>
+            <input type="file" id="d_video" accept="video/*">
+          </div>
+        </div>
+        <button type="submit" class="btn" id="danza-submit-btn">Publicar</button>
+      </form>
+
+      <h2 style="margin-top:2.5rem;">Publicaciones existentes</h2>
+      <div id="danza-list"><p>Cargando…</p></div>
+    </section>
+
+    <!-- ============ TAB NOTICIAS ============ -->
+    <section id="tab-noticias" class="admin-panel">
+      <h2>Nueva noticia</h2>
+      <div id="noticias-status" class="status-banner status-banner--hidden"></div>
+      <form id="noticias-form">
+        <div>
+          <label for="n_epigrafe">Epígrafe</label>
+          <input type="text" id="n_epigrafe" placeholder="Antetítulo corto (opcional)">
+        </div>
+        <div>
+          <label for="n_titular">Titular</label>
+          <input type="text" id="n_titular" required>
+        </div>
+        <div>
+          <label for="n_bajada">Bajada de título</label>
+          <input type="text" id="n_bajada" placeholder="Opcional">
+        </div>
+        <div>
+          <label for="n_cuerpo">Cuerpo de la noticia</label>
+          <textarea id="n_cuerpo" required></textarea>
+        </div>
+        <div class="form-row">
+          <div>
+            <label for="n_photo1">Foto 1</label>
+            <input type="file" id="n_photo1" accept="image/*">
+          </div>
+          <div>
+            <label for="n_photo2">Foto 2 (opcional)</label>
+            <input type="file" id="n_photo2" accept="image/*">
+          </div>
+        </div>
+        <div>
+          <label for="n_video">Video (opcional)</label>
+          <input type="file" id="n_video" accept="video/*">
+        </div>
+        <p class="field-hint">Máximo 2 fotos y 1 video por noticia.</p>
+        <button type="submit" class="btn" id="noticias-submit-btn">Publicar noticia</button>
+      </form>
+
+      <h2 style="margin-top:2.5rem;">Noticias publicadas</h2>
+      <div id="noticias-list"><p>Cargando…</p></div>
+    </section>
+
+  </div>
+</main>
+
+<footer>
+  I.E.D. Fanny Mikey · Departamento de Comunicaciones
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="assets/js/supabase-config.js"></script>
+<script src="assets/js/auth.js"></script>
+<script src="assets/js/admin.js"></script>
+</body>
+</html>

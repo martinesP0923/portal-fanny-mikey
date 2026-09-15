@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Emisora Fanny Music — Departamento de Comunicaciones</title>
+<link rel="icon" href="assets/images/logo.png">
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+<header class="masthead">
+  <div class="masthead__bar">
+    <div class="masthead__brand">
+      <img src="assets/images/logo.png" alt="Escudo I.E.D. Fanny Mikey">
+      <div>
+        <div class="masthead__title">Departamento de Comunicaciones</div>
+        <div class="masthead__subtitle">I.E.D. Fanny Mikey — Ciencia y Tecnología</div>
+      </div>
+    </div>
+    <nav class="masthead__nav">
+      <a href="index.html">Inicio</a>
+      <a href="emisora.html" class="is-active">Emisora Fanny Music</a>
+      <a href="danza-teatro.html">Danza y Teatro</a>
+      <a href="noticias.html">Noticias</a>
+      <a href="presentadores.html">Presentadores</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <div class="container">
+
+    <section class="section-front" style="border-top:none; padding-top:1.5rem;">
+      <p class="eyebrow">Al aire</p>
+      <h1 style="margin-bottom:1.2rem;">Emisora Fanny Music</h1>
+
+      <div class="now-playing" id="now-playing-box">
+        <span class="pulse-dot"></span>
+        <div>
+          <div class="now-playing__label">SONANDO AHORA</div>
+          <div class="now-playing__song" id="np-song">Cargando…</div>
+          <div class="now-playing__artist" id="np-artist"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-front">
+      <p class="eyebrow">Pide tu canción</p>
+      <h2>Solicitar una canción</h2>
+      <p style="color:#4b4d52; max-width:60ch;">Escribe el nombre de la canción y el artista, y quedará en la lista para que el presentador la reproduzca.</p>
+
+      <div id="request-status" class="status-banner status-banner--hidden"></div>
+
+      <form id="request-form">
+        <div class="form-row">
+          <div>
+            <label for="song_name">Canción</label>
+            <input type="text" id="song_name" required placeholder="Ej: Taki Taki">
+          </div>
+          <div>
+            <label for="artist">Artista</label>
+            <input type="text" id="artist" required placeholder="Ej: Ozuna">
+          </div>
+        </div>
+        <div class="form-row">
+          <div>
+            <label for="requested_by">Tu nombre (opcional)</label>
+            <input type="text" id="requested_by" placeholder="Ej: Curso 8B">
+          </div>
+        </div>
+        <div>
+          <label for="message">Dedicatoria o mensaje (opcional)</label>
+          <textarea id="message" placeholder="Un saludo para..."></textarea>
+        </div>
+        <button type="submit" class="btn">Enviar solicitud</button>
+      </form>
+    </section>
+
+  </div>
+</main>
+
+<footer>
+  I.E.D. Fanny Mikey · Departamento de Comunicaciones
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="assets/js/supabase-config.js"></script>
+<script src="assets/js/emisora.js"></script>
+</body>
+</html>
