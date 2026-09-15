@@ -1,0 +1,331 @@
+/* =========================================================
+   PORTAL DE COMUNICACIONES — I.E.D. FANNY MIKEY
+   Tokens de diseño:
+   - Navy   #16234E  (masthead, fondos oscuros)
+   - Blue   #3457D5  (acento primario, enlaces, botones)
+   - Gold   #C99A2E  (estrellas, detalles, hover)
+   - Ink    #24262B  (texto)
+   - Paper  #F5F2EC  (fondo de página)
+   - Blush  #D9BFC7  (filete decorativo, tomado del borde del escudo)
+   Tipografía:
+   - Titulares: "Fraunces" (serif editorial, con carácter de diario escolar)
+   - Cuerpo:    "IBM Plex Sans"
+   ========================================================= */
+
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=IBM+Plex+Sans:wght@400;500;600&display=swap');
+
+:root {
+  --navy: #16234E;
+  --blue: #3457D5;
+  --gold: #C99A2E;
+  --ink: #24262B;
+  --paper: #F5F2EC;
+  --blush: #D9BFC7;
+  --paper-raised: #FFFFFF;
+  --line: rgba(22, 35, 78, 0.14);
+  --radius: 4px;
+}
+
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: 'IBM Plex Sans', sans-serif;
+  line-height: 1.55;
+}
+
+h1, h2, h3, h4, .display {
+  font-family: 'Fraunces', serif;
+  color: var(--navy);
+  line-height: 1.15;
+  margin: 0 0 0.5em;
+}
+
+a { color: var(--blue); }
+a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible {
+  outline: 3px solid var(--gold);
+  outline-offset: 2px;
+}
+
+img { max-width: 100%; display: block; }
+
+.container {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+/* ---------- MASTHEAD ---------- */
+.masthead {
+  background: var(--navy);
+  color: #fff;
+  border-bottom: 6px solid var(--gold);
+}
+.masthead__bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.1rem 1.5rem;
+  max-width: 1080px;
+  margin: 0 auto;
+  gap: 1rem;
+}
+.masthead__brand {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+}
+.masthead__brand img { height: 56px; width: 56px; }
+.masthead__title {
+  font-family: 'Fraunces', serif;
+  font-weight: 700;
+  font-size: 1.5rem;
+  color: #fff;
+  letter-spacing: 0.01em;
+}
+.masthead__subtitle {
+  font-size: 0.8rem;
+  color: var(--blush);
+  margin-top: 0.1rem;
+}
+nav.masthead__nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem 1.4rem;
+}
+nav.masthead__nav a {
+  color: #EDEBE3;
+  text-decoration: none;
+  font-size: 0.95rem;
+  padding: 0.3rem 0;
+  border-bottom: 2px solid transparent;
+}
+nav.masthead__nav a:hover,
+nav.masthead__nav a.is-active {
+  border-bottom-color: var(--gold);
+  color: #fff;
+}
+
+/* ---------- SECTIONS ---------- */
+main { padding: 2.5rem 0 4rem; }
+.section-front {
+  padding: 2.5rem 0;
+  border-top: 1px solid var(--line);
+}
+.section-front:first-child { border-top: none; }
+
+.eyebrow {
+  color: var(--blue);
+  font-size: 0.85rem;
+  font-weight: 600;
+  margin-bottom: 0.3rem;
+}
+
+.hero {
+  text-align: center;
+  padding: 3rem 1rem 2rem;
+}
+.hero h1 { font-size: 2.6rem; max-width: 18ch; margin: 0 auto 0.6rem; }
+.hero p { max-width: 56ch; margin: 0 auto; color: #4b4d52; }
+
+/* Grid of the three departments on the homepage, each with its own voice */
+.dept-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+@media (max-width: 780px) {
+  .dept-grid { grid-template-columns: 1fr; }
+}
+.dept-card {
+  background: var(--paper-raised);
+  border: 1px solid var(--line);
+  padding: 1.6rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+.dept-card--radio { border-top: 4px solid var(--blue); }
+.dept-card--danza { border-top: 4px solid var(--gold); }
+.dept-card--noticias { border-top: 4px solid var(--navy); }
+.dept-card h3 { font-size: 1.3rem; }
+.dept-card p { color: #4b4d52; font-size: 0.95rem; flex-grow: 1; }
+
+/* ---------- BUTTONS & FORMS ---------- */
+.btn {
+  display: inline-block;
+  background: var(--blue);
+  color: #fff;
+  border: none;
+  padding: 0.7rem 1.4rem;
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-weight: 600;
+  font-size: 0.95rem;
+  text-decoration: none;
+  cursor: pointer;
+  border-radius: var(--radius);
+}
+.btn:hover { background: #2946b8; }
+.btn--gold { background: var(--gold); color: var(--navy); }
+.btn--gold:hover { background: #b6871f; }
+.btn--outline {
+  background: transparent;
+  color: var(--navy);
+  border: 1.5px solid var(--navy);
+}
+.btn--ghost {
+  background: transparent;
+  color: var(--blue);
+  border: 1px solid var(--line);
+}
+.btn--danger { background: #a5322a; }
+.btn--danger:hover { background: #832822; }
+.btn[disabled] { opacity: 0.55; cursor: not-allowed; }
+
+form { display: flex; flex-direction: column; gap: 1rem; }
+label { font-weight: 600; font-size: 0.9rem; display: block; margin-bottom: 0.3rem; }
+input, textarea, select {
+  width: 100%;
+  padding: 0.65rem 0.8rem;
+  border: 1px solid #C8C4BA;
+  border-radius: var(--radius);
+  font-family: inherit;
+  font-size: 0.95rem;
+  background: #fff;
+}
+textarea { min-height: 120px; resize: vertical; }
+.field-hint { font-size: 0.8rem; color: #6b6d72; margin-top: 0.25rem; }
+.form-row { display: flex; gap: 1rem; flex-wrap: wrap; }
+.form-row > * { flex: 1; min-width: 220px; }
+
+.status-banner {
+  padding: 0.8rem 1rem;
+  border-radius: var(--radius);
+  font-size: 0.9rem;
+  margin-bottom: 1rem;
+}
+.status-banner--ok { background: #E4EFE0; color: #2C5E2C; }
+.status-banner--error { background: #F6E1DE; color: #8C2E22; }
+.status-banner--hidden { display: none; }
+
+/* ---------- EMISORA ---------- */
+.now-playing {
+  background: var(--navy);
+  color: #fff;
+  padding: 1.6rem 1.8rem;
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  border-left: 6px solid var(--gold);
+}
+.now-playing__label { font-size: 0.75rem; letter-spacing: 0.08em; color: var(--blush); }
+.now-playing__song { font-family: 'Fraunces', serif; font-size: 1.4rem; }
+.now-playing__artist { color: #C9CEE8; }
+.pulse-dot {
+  width: 10px; height: 10px; border-radius: 50%;
+  background: var(--gold);
+  flex-shrink: 0;
+  animation: pulse 1.6s ease-in-out infinite;
+}
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(1.25); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .pulse-dot { animation: none; }
+}
+
+.request-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 0.6rem; }
+.request-item {
+  display: flex; justify-content: space-between; align-items: center;
+  gap: 1rem; padding: 0.8rem 1rem; background: var(--paper-raised);
+  border: 1px solid var(--line);
+}
+.request-item__song { font-weight: 600; }
+.request-item__meta { font-size: 0.82rem; color: #6b6d72; }
+
+/* ---------- NOTICIAS (front page style) ---------- */
+.news-item {
+  border-bottom: 1px solid var(--line);
+  padding: 1.8rem 0;
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: 1.6rem;
+}
+@media (max-width: 700px) {
+  .news-item { grid-template-columns: 1fr; }
+}
+.news-item__epigrafe { color: var(--blue); font-size: 0.8rem; font-weight: 600; margin-bottom: 0.2rem; }
+.news-item__titular { font-size: 1.6rem; margin-bottom: 0.3rem; }
+.news-item__bajada { color: #4b4d52; font-weight: 500; margin-bottom: 0.6rem; }
+.news-item__media img, .news-item__media video { width: 100%; border: 1px solid var(--line); }
+.news-item__date { font-size: 0.78rem; color: #8a8c90; margin-top: 0.6rem; }
+
+/* ---------- DANZA Y TEATRO ---------- */
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.4rem;
+}
+@media (max-width: 700px) { .gallery-grid { grid-template-columns: 1fr; } }
+.gallery-card {
+  background: var(--paper-raised);
+  border: 1px solid var(--line);
+}
+.gallery-card__media img, .gallery-card__media video { width: 100%; aspect-ratio: 4/3; object-fit: cover; }
+.gallery-card__body { padding: 1.2rem; }
+.gallery-card__body h3 { font-size: 1.15rem; }
+
+/* ---------- LOGIN / ADMIN ---------- */
+.login-panel {
+  max-width: 420px;
+  margin: 3rem auto;
+  background: var(--paper-raised);
+  border: 1px solid var(--line);
+  border-top: 4px solid var(--gold);
+  padding: 2.2rem;
+}
+.login-panel h1 { font-size: 1.6rem; text-align: center; }
+.login-panel p.tagline { text-align: center; color: #6b6d72; margin-bottom: 1.5rem; font-size: 0.9rem; }
+
+.admin-tabs {
+  display: flex; gap: 0.4rem; margin-bottom: 1.8rem; flex-wrap: wrap;
+  border-bottom: 1px solid var(--line);
+}
+.admin-tabs button {
+  background: none; border: none; padding: 0.8rem 1.1rem;
+  font-family: 'Fraunces', serif; font-size: 1.05rem; color: #6b6d72;
+  cursor: pointer; border-bottom: 3px solid transparent;
+}
+.admin-tabs button.is-active { color: var(--navy); border-bottom-color: var(--blue); }
+.admin-panel { display: none; }
+.admin-panel.is-active { display: block; }
+
+.admin-topbar {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 1rem 0; margin-bottom: 1rem; border-bottom: 1px solid var(--line);
+}
+.admin-list-item {
+  background: var(--paper-raised); border: 1px solid var(--line);
+  padding: 1rem 1.2rem; margin-bottom: 0.8rem;
+  display: flex; justify-content: space-between; gap: 1rem; align-items: flex-start;
+}
+.admin-list-item__actions { display: flex; gap: 0.5rem; flex-shrink: 0; }
+.admin-list-item__body { flex-grow: 1; }
+.admin-list-item__title { font-weight: 600; margin-bottom: 0.2rem; }
+.admin-list-item__meta { font-size: 0.8rem; color: #8a8c90; }
+
+.empty-state {
+  text-align: center; padding: 2.5rem 1rem; color: #8a8c90;
+  border: 1px dashed var(--line);
+}
+
+footer {
+  background: var(--navy); color: #C9CEE8;
+  padding: 1.6rem 0; text-align: center; font-size: 0.85rem;
+}
