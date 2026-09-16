@@ -172,6 +172,27 @@ main { padding: 2.5rem 0 4rem; }
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+  animation: dept-card-in 0.6s ease both;
+}
+.dept-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 14px 28px rgba(22, 35, 78, 0.18);
+}
+.dept-card--radio { animation-delay: 0s; }
+.dept-card--danza { animation-delay: 0.12s; }
+.dept-card--noticias { animation-delay: 0.24s; }
+.dept-card--radio:hover { border-color: var(--blue); }
+.dept-card--danza:hover { border-color: var(--gold); }
+.dept-card--noticias:hover { border-color: var(--navy); }
+
+@keyframes dept-card-in {
+  from { opacity: 0; transform: translateY(18px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .dept-card { animation: none; }
+  .dept-card:hover { transform: none; }
 }
 .dept-card--radio { border-top: 4px solid var(--blue); }
 .dept-card--danza { border-top: 4px solid var(--gold); }
@@ -192,7 +213,9 @@ main { padding: 2.5rem 0 4rem; }
   text-decoration: none;
   cursor: pointer;
   border-radius: var(--radius);
+  transition: background-color 0.2s ease, transform 0.15s ease;
 }
+.btn:active { transform: scale(0.97); }
 .btn:hover { background: #2946b8; }
 .btn--gold { background: var(--gold); color: var(--navy); }
 .btn--gold:hover { background: #b6871f; }
