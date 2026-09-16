@@ -3,7 +3,7 @@
 // =========================================================
 
 (async function init() {
-  const session = await requireLogin("presentadores.html");
+  const session = await requireLogin("../presentadores/");
   if (!session) return; // requireLogin ya redirige
 
   setupTabs();
@@ -106,10 +106,21 @@ async function loadRequests() {
 }
 
 window.playThisRequest = async function (id, song_name, artist) {
-  await supabaseClient.from("now_playing").update({ song_name, artist, updated_at: new Date().toISOString() }).eq("id", 1);
+  const { error } = await supabaseClient
+    .from("now_playing")
+    .update({ song_name, artist, updated_at: new Date().toISOString() })
+    .eq("id", 1);
+
+  if (error) {
+    console.error(error);
+    showBanner("np-status", "No se pudo actualizar. Revisa la consola (F12) para más detalles.", false);
+    return;
+  }
+
   document.getElementById("np_song").value = song_name;
   document.getElementById("np_artist").value = artist;
   showBanner("np-status", `Ahora suena: ${song_name}`, true);
+  loadNowPlayingAdmin();
 };
 
 window.deleteRequest = async function (id) {
