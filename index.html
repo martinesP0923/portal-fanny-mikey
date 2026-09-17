@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Portal de Comunicaciones  I.E.D. Fanny Mikey</title>
+<title>Portal de Comunicaciones I.E.D. Fanny Mikey</title>
 <link rel="icon" href="assets/images/logo.png">
 <link rel="stylesheet" href="assets/css/style.css">
 </head>
@@ -18,20 +18,23 @@
         <div class="masthead__subtitle">I.E.D. Fanny Mikey Ciencia y Tecnología</div>
       </div>
     </div>
-    <nav class="masthead__nav">
+    <button class="menu-toggle" id="menu-toggle" aria-label="Abrir menú" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+  <nav class="masthead__nav" id="masthead-nav">
       <a href="index.html" class="is-active">Inicio</a>
       <a href="emisora.html">Emisora Fanny Music</a>
       <a href="danza-teatro.html">Danza y Teatro</a>
       <a href="noticias.html">Noticias</a>
       <a href="presentadores.html">Presentadores</a>
-    </nav>
-  </div>
+  </nav>
 </header>
 
 <main>
   <div class="container">
     <section class="hero">
-      <p class="eyebrow">Bienvenidas y Bienvenidos al portal del departamento de comunicaciones</p>
+      <p class="eyebrow">Bienvenidas y bienvenidos al portal del departamento de comunicaciones</p>
       <h1>La voz, la escena y las noticias del colegio, en un solo lugar</h1>
       <p>Este es el punto de encuentro de todo lo que produce el Departamento de Comunicaciones: la emisora escolar, el grupo de danza y teatro, y las noticias de la institución.</p>
     </section>
@@ -46,7 +49,7 @@
 
       <article class="dept-card dept-card--danza">
         <p class="eyebrow">Escenario</p>
-        <h3>Danza y Teatro 💃</h3>
+        <h3>Danza y Teatro 👯</h3>
         <p>Fotos, videos y crónicas de los montajes, ensayos y presentaciones del grupo de danza y teatro.</p>
         <a class="btn btn--gold" href="danza-teatro.html">Ver publicaciones</a>
       </article>
@@ -65,5 +68,6 @@
   I.E.D. Fanny Mikey · Departamento de Comunicaciones
 </footer>
 
+<script src="assets/js/nav.js"></script>
 </body>
 </html>
