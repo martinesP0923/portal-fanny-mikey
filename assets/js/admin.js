@@ -3,7 +3,7 @@
 // =========================================================
 
 (async function init() {
-  const session = await requireLogin("../presentadores/");
+  const session = await requireLogin("presentadores.html");
   if (!session) return; // requireLogin ya redirige
 
   setupTabs();
@@ -132,11 +132,27 @@ window.deleteRequest = async function (id) {
 // ------------------------------------------------
 // DANZA Y TEATRO
 // ------------------------------------------------
+let editingDanzaId = null;
+let editingDanzaPhotoUrl = null;
+let editingDanzaVideoUrl = null;
+
+function resetDanzaForm() {
+  editingDanzaId = null;
+  editingDanzaPhotoUrl = null;
+  editingDanzaVideoUrl = null;
+  document.getElementById("danza-form").reset();
+  document.getElementById("danza-form-title").textContent = "Nueva publicación de Danza y Teatro";
+  document.getElementById("danza-submit-btn").textContent = "Publicar";
+  document.getElementById("danza-cancel-btn").style.display = "none";
+  document.getElementById("danza-file-hint").style.display = "none";
+}
+
 function setupDanzaForm() {
   document.getElementById("danza-form").addEventListener("submit", async (e) => {
     e.preventDefault();
     const btn = document.getElementById("danza-submit-btn");
-    btn.disabled = true; btn.textContent = "Publicando…";
+    const isEditing = !!editingDanzaId;
+    btn.disabled = true; btn.textContent = isEditing ? "Guardando…" : "Publicando…";
 
     try {
       const title = document.getElementById("d_title").value.trim();
@@ -144,25 +160,40 @@ function setupDanzaForm() {
       const photoFile = document.getElementById("d_photo").files[0];
       const videoFile = document.getElementById("d_video").files[0];
 
-      const photo_url = await uploadMedia(photoFile, "danza");
-      const video_url = await uploadMedia(videoFile, "danza");
+      let photo_url = editingDanzaPhotoUrl;
+      let video_url = editingDanzaVideoUrl;
+      if (photoFile) photo_url = await uploadMedia(photoFile, "danza");
+      if (videoFile) video_url = await uploadMedia(videoFile, "danza");
 
-      const { error } = await supabaseClient.from("dance_theater_posts").insert({
-        title, content, photo_url, video_url
-      });
-      if (error) throw error;
+      if (isEditing) {
+        const { error } = await supabaseClient.from("dance_theater_posts")
+          .update({ title, content, photo_url, video_url })
+          .eq("id", editingDanzaId);
+        if (error) throw error;
+        showBanner("danza-status", "Publicación actualizada.", true);
+      } else {
+        const { error } = await supabaseClient.from("dance_theater_posts").insert({
+          title, content, photo_url, video_url
+        });
+        if (error) throw error;
+        showBanner("danza-status", "Publicación creada.", true);
+      }
 
-      showBanner("danza-status", "Publicación creada.", true);
-      e.target.reset();
+      resetDanzaForm();
       loadDanzaList();
     } catch (err) {
       console.error(err);
-      showBanner("danza-status", "Ocurrió un error al publicar.", false);
+      showBanner("danza-status", "Ocurrió un error al guardar.", false);
     } finally {
-      btn.disabled = false; btn.textContent = "Publicar";
+      btn.disabled = false;
+      if (btn.textContent !== "Publicar") btn.textContent = editingDanzaId ? "Guardar cambios" : "Publicar";
     }
   });
+
+  document.getElementById("danza-cancel-btn").addEventListener("click", resetDanzaForm);
 }
+
+let danzaCache = [];
 
 async function loadDanzaList() {
   const el = document.getElementById("danza-list");
@@ -171,8 +202,10 @@ async function loadDanzaList() {
 
   if (error || !data || data.length === 0) {
     el.innerHTML = `<div class="empty-state">Aún no hay publicaciones.</div>`;
+    danzaCache = [];
     return;
   }
+  danzaCache = data;
   el.innerHTML = data.map(p => `
     <div class="admin-list-item">
       <div class="admin-list-item__body">
@@ -180,26 +213,66 @@ async function loadDanzaList() {
         <div class="admin-list-item__meta">${formatDate(p.created_at)}</div>
       </div>
       <div class="admin-list-item__actions">
+        <button class="btn btn--ghost" onclick="editDanza('${p.id}')">Editar</button>
         <button class="btn btn--danger" onclick="deleteDanza('${p.id}')">Eliminar</button>
       </div>
     </div>
   `).join("");
 }
 
+window.editDanza = function (id) {
+  const p = danzaCache.find(x => x.id === id);
+  if (!p) return;
+  editingDanzaId = p.id;
+  editingDanzaPhotoUrl = p.photo_url;
+  editingDanzaVideoUrl = p.video_url;
+
+  document.getElementById("d_title").value = p.title || "";
+  document.getElementById("d_content").value = p.content || "";
+  document.getElementById("d_photo").value = "";
+  document.getElementById("d_video").value = "";
+
+  document.getElementById("danza-form-title").textContent = "Editando publicación";
+  document.getElementById("danza-submit-btn").textContent = "Guardar cambios";
+  document.getElementById("danza-cancel-btn").style.display = "inline-block";
+  document.getElementById("danza-file-hint").style.display = "block";
+
+  document.getElementById("tab-danza").scrollIntoView({ behavior: "smooth" });
+};
+
 window.deleteDanza = async function (id) {
   if (!confirm("¿Eliminar esta publicación?")) return;
   await supabaseClient.from("dance_theater_posts").delete().eq("id", id);
+  if (editingDanzaId === id) resetDanzaForm();
   loadDanzaList();
 };
 
 // ------------------------------------------------
 // NOTICIAS
 // ------------------------------------------------
+let editingNoticiaId = null;
+let editingNoticiaPhoto1 = null;
+let editingNoticiaPhoto2 = null;
+let editingNoticiaVideo = null;
+
+function resetNoticiasForm() {
+  editingNoticiaId = null;
+  editingNoticiaPhoto1 = null;
+  editingNoticiaPhoto2 = null;
+  editingNoticiaVideo = null;
+  document.getElementById("noticias-form").reset();
+  document.getElementById("noticias-form-title").textContent = "Nueva noticia";
+  document.getElementById("noticias-submit-btn").textContent = "Publicar noticia";
+  document.getElementById("noticias-cancel-btn").style.display = "none";
+  document.getElementById("noticias-file-hint").style.display = "none";
+}
+
 function setupNoticiasForm() {
   document.getElementById("noticias-form").addEventListener("submit", async (e) => {
     e.preventDefault();
     const btn = document.getElementById("noticias-submit-btn");
-    btn.disabled = true; btn.textContent = "Publicando…";
+    const isEditing = !!editingNoticiaId;
+    btn.disabled = true; btn.textContent = isEditing ? "Guardando…" : "Publicando…";
 
     try {
       const epigrafe = document.getElementById("n_epigrafe").value.trim();
@@ -210,27 +283,43 @@ function setupNoticiasForm() {
       const photo2 = document.getElementById("n_photo2").files[0];
       const video = document.getElementById("n_video").files[0];
 
-      const photo_url_1 = await uploadMedia(photo1, "noticias");
-      const photo_url_2 = await uploadMedia(photo2, "noticias");
-      const video_url = await uploadMedia(video, "noticias");
+      let photo_url_1 = editingNoticiaPhoto1;
+      let photo_url_2 = editingNoticiaPhoto2;
+      let video_url = editingNoticiaVideo;
+      if (photo1) photo_url_1 = await uploadMedia(photo1, "noticias");
+      if (photo2) photo_url_2 = await uploadMedia(photo2, "noticias");
+      if (video) video_url = await uploadMedia(video, "noticias");
 
-      const { error } = await supabaseClient.from("news_posts").insert({
+      const payload = {
         epigrafe: epigrafe || null, titular, bajada: bajada || null, cuerpo,
         photo_url_1, photo_url_2, video_url
-      });
-      if (error) throw error;
+      };
 
-      showBanner("noticias-status", "Noticia publicada.", true);
-      e.target.reset();
+      if (isEditing) {
+        const { error } = await supabaseClient.from("news_posts").update(payload).eq("id", editingNoticiaId);
+        if (error) throw error;
+        showBanner("noticias-status", "Noticia actualizada.", true);
+      } else {
+        const { error } = await supabaseClient.from("news_posts").insert(payload);
+        if (error) throw error;
+        showBanner("noticias-status", "Noticia publicada.", true);
+      }
+
+      resetNoticiasForm();
       loadNoticiasList();
     } catch (err) {
       console.error(err);
-      showBanner("noticias-status", "Ocurrió un error al publicar.", false);
+      showBanner("noticias-status", "Ocurrió un error al guardar.", false);
     } finally {
-      btn.disabled = false; btn.textContent = "Publicar noticia";
+      btn.disabled = false;
+      if (btn.textContent !== "Publicar noticia") btn.textContent = editingNoticiaId ? "Guardar cambios" : "Publicar noticia";
     }
   });
+
+  document.getElementById("noticias-cancel-btn").addEventListener("click", resetNoticiasForm);
 }
+
+let noticiasCache = [];
 
 async function loadNoticiasList() {
   const el = document.getElementById("noticias-list");
@@ -239,8 +328,10 @@ async function loadNoticiasList() {
 
   if (error || !data || data.length === 0) {
     el.innerHTML = `<div class="empty-state">Aún no hay noticias.</div>`;
+    noticiasCache = [];
     return;
   }
+  noticiasCache = data;
   el.innerHTML = data.map(p => `
     <div class="admin-list-item">
       <div class="admin-list-item__body">
@@ -248,14 +339,40 @@ async function loadNoticiasList() {
         <div class="admin-list-item__meta">${formatDate(p.created_at)}</div>
       </div>
       <div class="admin-list-item__actions">
+        <button class="btn btn--ghost" onclick="editNoticia('${p.id}')">Editar</button>
         <button class="btn btn--danger" onclick="deleteNoticia('${p.id}')">Eliminar</button>
       </div>
     </div>
   `).join("");
 }
 
+window.editNoticia = function (id) {
+  const p = noticiasCache.find(x => x.id === id);
+  if (!p) return;
+  editingNoticiaId = p.id;
+  editingNoticiaPhoto1 = p.photo_url_1;
+  editingNoticiaPhoto2 = p.photo_url_2;
+  editingNoticiaVideo = p.video_url;
+
+  document.getElementById("n_epigrafe").value = p.epigrafe || "";
+  document.getElementById("n_titular").value = p.titular || "";
+  document.getElementById("n_bajada").value = p.bajada || "";
+  document.getElementById("n_cuerpo").value = p.cuerpo || "";
+  document.getElementById("n_photo1").value = "";
+  document.getElementById("n_photo2").value = "";
+  document.getElementById("n_video").value = "";
+
+  document.getElementById("noticias-form-title").textContent = "Editando noticia";
+  document.getElementById("noticias-submit-btn").textContent = "Guardar cambios";
+  document.getElementById("noticias-cancel-btn").style.display = "inline-block";
+  document.getElementById("noticias-file-hint").style.display = "block";
+
+  document.getElementById("tab-noticias").scrollIntoView({ behavior: "smooth" });
+};
+
 window.deleteNoticia = async function (id) {
   if (!confirm("¿Eliminar esta noticia?")) return;
   await supabaseClient.from("news_posts").delete().eq("id", id);
+  if (editingNoticiaId === id) resetNoticiasForm();
   loadNoticiasList();
 };
