@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Panel de locución — Departamento de Comunicaciones</title>
+<title>Panel de locución Departamento de Comunicaciones</title>
 <link rel="icon" href="assets/images/logo.png">
 <link rel="stylesheet" href="assets/css/style.css">
 </head>
@@ -62,7 +62,7 @@
 
     <!-- ============ TAB DANZA ============ -->
     <section id="tab-danza" class="admin-panel">
-      <h2>Nueva publicación de Danza y Teatro</h2>
+      <h2 id="danza-form-title">Nueva publicación de Danza y Teatro</h2>
       <div id="danza-status" class="status-banner status-banner--hidden"></div>
       <form id="danza-form">
         <div>
@@ -83,7 +83,11 @@
             <input type="file" id="d_video" accept="video/*">
           </div>
         </div>
-        <button type="submit" class="btn" id="danza-submit-btn">Publicar</button>
+        <p class="field-hint" id="danza-file-hint" style="display:none;">Deja las fotos/video vacíos si no quieres reemplazar los actuales.</p>
+        <div style="display:flex; gap:0.8rem;">
+          <button type="submit" class="btn" id="danza-submit-btn">Publicar</button>
+          <button type="button" class="btn btn--ghost" id="danza-cancel-btn" style="display:none;">Cancelar edición</button>
+        </div>
       </form>
 
       <h2 style="margin-top:2.5rem;">Publicaciones existentes</h2>
@@ -92,7 +96,7 @@
 
     <!-- ============ TAB NOTICIAS ============ -->
     <section id="tab-noticias" class="admin-panel">
-      <h2>Nueva noticia</h2>
+      <h2 id="noticias-form-title">Nueva noticia</h2>
       <div id="noticias-status" class="status-banner status-banner--hidden"></div>
       <form id="noticias-form">
         <div>
@@ -126,7 +130,11 @@
           <input type="file" id="n_video" accept="video/*">
         </div>
         <p class="field-hint">Máximo 2 fotos y 1 video por noticia.</p>
-        <button type="submit" class="btn" id="noticias-submit-btn">Publicar noticia</button>
+        <p class="field-hint" id="noticias-file-hint" style="display:none;">Deja los archivos vacíos si no quieres reemplazar los actuales.</p>
+        <div style="display:flex; gap:0.8rem;">
+          <button type="submit" class="btn" id="noticias-submit-btn">Publicar noticia</button>
+          <button type="button" class="btn btn--ghost" id="noticias-cancel-btn" style="display:none;">Cancelar edición</button>
+        </div>
       </form>
 
       <h2 style="margin-top:2.5rem;">Noticias publicadas</h2>
