@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Noticias Departamento de Comunicaciones</title>
+<title>Noticias — Departamento de Comunicaciones</title>
 <link rel="icon" href="assets/images/logo.png">
 <link rel="stylesheet" href="assets/css/style.css">
 </head>
@@ -15,17 +15,20 @@
       <img src="assets/images/logo.png" alt="Escudo I.E.D. Fanny Mikey">
       <div>
         <div class="masthead__title">Departamento de Comunicaciones</div>
-        <div class="masthead__subtitle">I.E.D. Fanny Mikey Ciencia y Tecnología</div>
+        <div class="masthead__subtitle">I.E.D. Fanny Mikey — Ciencia y Tecnología</div>
       </div>
     </div>
-    <nav class="masthead__nav">
+    <button class="menu-toggle" id="menu-toggle" aria-label="Abrir menú" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+  <nav class="masthead__nav" id="masthead-nav">
       <a href="index.html">Inicio</a>
       <a href="emisora.html">Emisora Fanny Music</a>
       <a href="danza-teatro.html">Danza y Teatro</a>
       <a href="noticias.html" class="is-active">Noticias</a>
       <a href="presentadores.html">Presentadores</a>
-    </nav>
-  </div>
+  </nav>
 </header>
 
 <main>
@@ -33,7 +36,6 @@
     <section class="section-front" style="border-top:none; padding-top:1.5rem;">
       <p class="eyebrow">Actualidad</p>
       <h1>Noticias del colegio</h1>
-      <p style="color:#4b4d52; max-width:60ch;">Noticias, entrevistas, montajes periodisticos y mucho mas.</p>
     </section>
 
     <section id="news-list">
@@ -49,5 +51,6 @@
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="assets/js/supabase-config.js"></script>
 <script src="assets/js/noticias.js"></script>
+<script src="assets/js/nav.js"></script>
 </body>
 </html>
