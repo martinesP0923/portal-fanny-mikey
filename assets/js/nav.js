@@ -11,7 +11,6 @@
     toggle.setAttribute("aria-expanded", isOpen ? "true" : "false");
   });
 
-  // Cerrar el menú si se hace clic fuera de él
   document.addEventListener("click", (e) => {
     if (!nav.contains(e.target) && !toggle.contains(e.target)) {
       nav.classList.remove("is-open");
