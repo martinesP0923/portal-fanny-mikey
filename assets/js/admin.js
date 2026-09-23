@@ -31,13 +31,14 @@ const MAX_VIDEO_MB = 20;
 })();
 
 function setupTabs() {
-  const buttons = document.querySelectorAll(".admin-tabs button");
+  const buttons = document.querySelectorAll("#admin-switcher [data-tab]");
   buttons.forEach(btn => {
     btn.addEventListener("click", () => {
-      buttons.forEach(b => b.classList.remove("is-active"));
+      document.querySelectorAll("#admin-switcher .dept-card").forEach(c => c.classList.remove("is-active"));
       document.querySelectorAll(".admin-panel").forEach(p => p.classList.remove("is-active"));
-      btn.classList.add("is-active");
+      btn.closest(".dept-card").classList.add("is-active");
       document.getElementById(btn.dataset.tab).classList.add("is-active");
+      document.getElementById(btn.dataset.tab).scrollIntoView({ behavior: "smooth" });
     });
   });
 }
@@ -253,7 +254,7 @@ window.editEvento = function (id) {
   document.getElementById("eventos-cancel-btn").style.display = "inline-block";
   document.getElementById("eventos-file-hint").style.display = "block";
 
-  document.querySelector('.admin-tabs button[data-tab="tab-eventos"]').click();
+  document.querySelector('[data-tab="tab-eventos"]').click();
   document.getElementById("tab-eventos").scrollIntoView({ behavior: "smooth" });
 };
 
@@ -384,7 +385,7 @@ window.editNoticia = function (id) {
   document.getElementById("noticias-cancel-btn").style.display = "inline-block";
   document.getElementById("noticias-file-hint").style.display = "block";
 
-  document.querySelector('.admin-tabs button[data-tab="tab-noticias"]').click();
+  document.querySelector('[data-tab="tab-noticias"]').click();
   document.getElementById("tab-noticias").scrollIntoView({ behavior: "smooth" });
 };
 
@@ -503,7 +504,7 @@ window.editDanza = function (id) {
   document.getElementById("danza-cancel-btn").style.display = "inline-block";
   document.getElementById("danza-file-hint").style.display = "block";
 
-  document.querySelector('.admin-tabs button[data-tab="tab-danza"]').click();
+  document.querySelector('[data-tab="tab-danza"]').click();
   document.getElementById("tab-danza").scrollIntoView({ behavior: "smooth" });
 };
 
@@ -613,7 +614,7 @@ window.editInteres = function (id) {
   document.getElementById("interes-cancel-btn").style.display = "inline-block";
   document.getElementById("interes-file-hint").style.display = "block";
 
-  document.querySelector('.admin-tabs button[data-tab="tab-interes"]').click();
+  document.querySelector('[data-tab="tab-interes"]').click();
   document.getElementById("tab-interes").scrollIntoView({ behavior: "smooth" });
 };
 
