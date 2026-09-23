@@ -33,10 +33,50 @@
     </div>
 
     <div class="admin-tabs">
-      <button data-tab="tab-emisora" class="is-active">Emisora</button>
-      <button data-tab="tab-danza">Danza y Teatro</button>
-      <button data-tab="tab-noticias">Noticias</button>
+      <button data-tab="tab-eventos">Próximos eventos 📢</button>
+      <button data-tab="tab-emisora" class="is-active">Emisora 🎙️</button>
+      <button data-tab="tab-noticias">Noticias 📰</button>
+      <button data-tab="tab-danza">Danza y Teatro 👯</button>
+      <button data-tab="tab-interes">Centros de interés 🎯</button>
     </div>
+
+    <!-- ============ TAB EVENTOS ============ -->
+    <section id="tab-eventos" class="admin-panel">
+      <h2 id="eventos-form-title">Nuevo evento</h2>
+      <div id="eventos-status" class="status-banner status-banner--hidden"></div>
+      <form id="eventos-form">
+        <div>
+          <label for="e_title">Nombre del evento</label>
+          <input type="text" id="e_title" required>
+        </div>
+        <div class="form-row">
+          <div>
+            <label for="e_date">Fecha</label>
+            <input type="date" id="e_date">
+          </div>
+          <div>
+            <label for="e_location">Lugar</label>
+            <input type="text" id="e_location" placeholder="Ej: Coliseo del colegio">
+          </div>
+        </div>
+        <div>
+          <label for="e_description">Descripción</label>
+          <textarea id="e_description" required></textarea>
+        </div>
+        <div>
+          <label for="e_photo">Foto (opcional)</label>
+          <input type="file" id="e_photo" accept="image/*">
+        </div>
+        <p class="field-hint" id="eventos-file-hint" style="display:none;">Deja la foto vacía si no quieres reemplazar la actual.</p>
+        <div style="display:flex; gap:0.8rem;">
+          <button type="submit" class="btn" id="eventos-submit-btn">Publicar evento</button>
+          <button type="button" class="btn btn--ghost" id="eventos-cancel-btn" style="display:none;">Cancelar edición</button>
+        </div>
+      </form>
+
+      <h2 style="margin-top:2.5rem;">Eventos publicados</h2>
+      <div id="eventos-list"><p>Cargando…</p></div>
+    </section>
 
     <!-- ============ TAB EMISORA ============ -->
     <section id="tab-emisora" class="admin-panel is-active">
@@ -58,40 +98,6 @@
 
       <h2 style="margin-top:2.5rem;">Solicitudes de los estudiantes</h2>
       <div id="requests-list"><p>Cargando…</p></div>
-    </section>
-
-    <!-- ============ TAB DANZA ============ -->
-    <section id="tab-danza" class="admin-panel">
-      <h2 id="danza-form-title">Nueva publicación de Danza y Teatro</h2>
-      <div id="danza-status" class="status-banner status-banner--hidden"></div>
-      <form id="danza-form">
-        <div>
-          <label for="d_title">Título</label>
-          <input type="text" id="d_title" required>
-        </div>
-        <div>
-          <label for="d_content">Contenido</label>
-          <textarea id="d_content" required></textarea>
-        </div>
-        <div class="form-row">
-          <div>
-            <label for="d_photo">Foto (1)</label>
-            <input type="file" id="d_photo" accept="image/*">
-          </div>
-          <div>
-            <label for="d_video">Video (1)</label>
-            <input type="file" id="d_video" accept="video/*">
-          </div>
-        </div>
-        <p class="field-hint" id="danza-file-hint" style="display:none;">Deja las fotos/video vacíos si no quieres reemplazar los actuales.</p>
-        <div style="display:flex; gap:0.8rem;">
-          <button type="submit" class="btn" id="danza-submit-btn">Publicar</button>
-          <button type="button" class="btn btn--ghost" id="danza-cancel-btn" style="display:none;">Cancelar edición</button>
-        </div>
-      </form>
-
-      <h2 style="margin-top:2.5rem;">Publicaciones existentes</h2>
-      <div id="danza-list"><p>Cargando…</p></div>
     </section>
 
     <!-- ============ TAB NOTICIAS ============ -->
@@ -129,7 +135,7 @@
           <label for="n_video">Video (opcional)</label>
           <input type="file" id="n_video" accept="video/*">
         </div>
-        <p class="field-hint">Máximo 2 fotos y 1 video por noticia.</p>
+        <p class="field-hint">Máximo 2 fotos y 1 video por noticia. Los videos no pueden superar 20 MB.</p>
         <p class="field-hint" id="noticias-file-hint" style="display:none;">Deja los archivos vacíos si no quieres reemplazar los actuales.</p>
         <div style="display:flex; gap:0.8rem;">
           <button type="submit" class="btn" id="noticias-submit-btn">Publicar noticia</button>
@@ -139,6 +145,69 @@
 
       <h2 style="margin-top:2.5rem;">Noticias publicadas</h2>
       <div id="noticias-list"><p>Cargando…</p></div>
+    </section>
+
+    <!-- ============ TAB DANZA ============ -->
+    <section id="tab-danza" class="admin-panel">
+      <h2 id="danza-form-title">Nueva publicación de Danza y Teatro</h2>
+      <div id="danza-status" class="status-banner status-banner--hidden"></div>
+      <form id="danza-form">
+        <div>
+          <label for="d_title">Título</label>
+          <input type="text" id="d_title" required>
+        </div>
+        <div>
+          <label for="d_content">Contenido</label>
+          <textarea id="d_content" required></textarea>
+        </div>
+        <div class="form-row">
+          <div>
+            <label for="d_photo">Foto (1)</label>
+            <input type="file" id="d_photo" accept="image/*">
+          </div>
+          <div>
+            <label for="d_video">Video (1)</label>
+            <input type="file" id="d_video" accept="video/*">
+          </div>
+        </div>
+        <p class="field-hint">Los videos no pueden superar 20 MB.</p>
+        <p class="field-hint" id="danza-file-hint" style="display:none;">Deja las fotos/video vacíos si no quieres reemplazar los actuales.</p>
+        <div style="display:flex; gap:0.8rem;">
+          <button type="submit" class="btn" id="danza-submit-btn">Publicar</button>
+          <button type="button" class="btn btn--ghost" id="danza-cancel-btn" style="display:none;">Cancelar edición</button>
+        </div>
+      </form>
+
+      <h2 style="margin-top:2.5rem;">Publicaciones existentes</h2>
+      <div id="danza-list"><p>Cargando…</p></div>
+    </section>
+
+    <!-- ============ TAB CENTROS DE INTERÉS ============ -->
+    <section id="tab-interes" class="admin-panel">
+      <h2 id="interes-form-title">Nuevo centro de interés</h2>
+      <div id="interes-status" class="status-banner status-banner--hidden"></div>
+      <form id="interes-form">
+        <div>
+          <label for="i_title">Nombre del centro de interés</label>
+          <input type="text" id="i_title" required>
+        </div>
+        <div>
+          <label for="i_description">Descripción</label>
+          <textarea id="i_description" required></textarea>
+        </div>
+        <div>
+          <label for="i_photo">Foto (opcional)</label>
+          <input type="file" id="i_photo" accept="image/*">
+        </div>
+        <p class="field-hint" id="interes-file-hint" style="display:none;">Deja la foto vacía si no quieres reemplazar la actual.</p>
+        <div style="display:flex; gap:0.8rem;">
+          <button type="submit" class="btn" id="interes-submit-btn">Publicar</button>
+          <button type="button" class="btn btn--ghost" id="interes-cancel-btn" style="display:none;">Cancelar edición</button>
+        </div>
+      </form>
+
+      <h2 style="margin-top:2.5rem;">Centros de interés publicados</h2>
+      <div id="interes-list"><p>Cargando…</p></div>
     </section>
 
   </div>
