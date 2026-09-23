@@ -32,12 +32,41 @@
       <button class="btn btn--ghost" id="logout-btn">Cerrar sesión</button>
     </div>
 
-    <div class="admin-tabs">
-      <button data-tab="tab-eventos">Próximos eventos 📢</button>
-      <button data-tab="tab-emisora" class="is-active">Emisora 🎙️</button>
-      <button data-tab="tab-noticias">Noticias 📰</button>
-      <button data-tab="tab-danza">Danza y Teatro 👯</button>
-      <button data-tab="tab-interes">Centros de interés 🎯</button>
+    <div class="dept-grid" id="admin-switcher">
+      <article class="dept-card dept-card--eventos">
+        <p class="eyebrow">Agenda</p>
+        <h3>Próximos eventos 📢</h3>
+        <p>Publica, edita o elimina los próximos eventos del colegio.</p>
+        <button type="button" class="btn btn--blush" data-tab="tab-eventos">Editar</button>
+      </article>
+
+      <article class="dept-card dept-card--radio is-active">
+        <p class="eyebrow">En vivo</p>
+        <h3>Emisora Fanny Music 🎙️</h3>
+        <p>Actualiza qué está sonando y gestiona las solicitudes de canciones.</p>
+        <button type="button" class="btn" data-tab="tab-emisora">Editar</button>
+      </article>
+
+      <article class="dept-card dept-card--noticias">
+        <p class="eyebrow">Actualidad</p>
+        <h3>Noticias 📰</h3>
+        <p>Publica, edita o elimina las noticias del colegio.</p>
+        <button type="button" class="btn btn--outline" data-tab="tab-noticias">Editar</button>
+      </article>
+
+      <article class="dept-card dept-card--danza">
+        <p class="eyebrow">Escenario</p>
+        <h3>Danza y Teatro 👯</h3>
+        <p>Publica, edita o elimina el contenido de Danza y Teatro.</p>
+        <button type="button" class="btn btn--gold" data-tab="tab-danza">Editar</button>
+      </article>
+
+      <article class="dept-card dept-card--interes">
+        <p class="eyebrow">Explora</p>
+        <h3>Centros de interés 🎯</h3>
+        <p>Publica, edita o elimina los centros de interés.</p>
+        <button type="button" class="btn btn--sage" data-tab="tab-interes">Editar</button>
+      </article>
     </div>
 
     <!-- ============ TAB EVENTOS ============ -->
