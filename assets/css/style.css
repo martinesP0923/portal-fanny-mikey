@@ -380,48 +380,19 @@ textarea { min-height: 120px; resize: vertical; }
 .login-panel h1 { font-size: 1.6rem; text-align: center; }
 .login-panel p.tagline { text-align: center; color: #6b6d72; margin-bottom: 1.5rem; font-size: 0.9rem; }
 
-.admin-tabs {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 0.9rem;
-  margin: 0 auto 2.2rem;
-  padding: 0;
-  border-bottom: none;
-  max-width: 900px;
+/* El selector de secciones del panel reutiliza las tarjetas .dept-card de la portada */
+#admin-switcher { margin-bottom: 2.5rem; }
+#admin-switcher .dept-card { cursor: default; }
+#admin-switcher .dept-card.is-active {
+  box-shadow: 0 14px 28px rgba(22, 35, 78, 0.22);
+  transform: translateY(-4px);
 }
-.admin-tabs button {
-  background: var(--paper-raised);
-  border: 1px solid var(--line);
-  border-top: 4px solid var(--line);
-  padding: 1rem 1.3rem;
-  min-width: 140px;
-  font-family: 'Fraunces', serif;
-  font-size: 1rem;
-  color: var(--ink);
-  cursor: pointer;
-  border-radius: var(--radius);
-  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
-}
-.admin-tabs button:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 10px 20px rgba(22, 35, 78, 0.12);
-}
-.admin-tabs button.is-active {
-  color: var(--navy);
-  font-weight: 600;
-  border-top-color: var(--blue);
-  box-shadow: 0 10px 20px rgba(22, 35, 78, 0.12);
-}
-.admin-tabs button[data-tab="tab-eventos"].is-active { border-top-color: var(--blush); }
-.admin-tabs button[data-tab="tab-emisora"].is-active { border-top-color: var(--blue); }
-.admin-tabs button[data-tab="tab-noticias"].is-active { border-top-color: var(--navy); }
-.admin-tabs button[data-tab="tab-danza"].is-active { border-top-color: var(--gold); }
-.admin-tabs button[data-tab="tab-interes"].is-active { border-top-color: var(--sage); }
-@media (max-width: 700px) {
-  .admin-tabs { gap: 0.6rem; }
-  .admin-tabs button { min-width: calc(50% - 0.6rem); padding: 0.8rem; font-size: 0.9rem; }
-}
+#admin-switcher .dept-card--eventos.is-active { border-color: var(--blush); }
+#admin-switcher .dept-card--radio.is-active { border-color: var(--blue); }
+#admin-switcher .dept-card--noticias.is-active { border-color: var(--navy); }
+#admin-switcher .dept-card--danza.is-active { border-color: var(--gold); }
+#admin-switcher .dept-card--interes.is-active { border-color: var(--sage); }
+
 .admin-panel { display: none; }
 .admin-panel.is-active { display: block; }
 
