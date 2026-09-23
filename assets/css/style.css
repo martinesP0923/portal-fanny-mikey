@@ -7,6 +7,7 @@
    - Ink    #24262B  (texto)
    - Paper  #F5F2EC  (fondo de página)
    - Blush  #D9BFC7  (filete decorativo, tomado del borde del escudo)
+   - Sage   #6B8F71  (Centros de interés)
    Tipografía:
    - Titulares: "Fraunces" (serif editorial, con carácter de diario escolar)
    - Cuerpo:    "IBM Plex Sans"
@@ -21,6 +22,7 @@
   --ink: #24262B;
   --paper: #F5F2EC;
   --blush: #D9BFC7;
+  --sage: #6B8F71;
   --paper-raised: #FFFFFF;
   --line: rgba(22, 35, 78, 0.14);
   --radius: 4px;
@@ -184,7 +186,7 @@ main { padding: 2.5rem 0 4rem; }
   .hero h1 { font-size: 1.8rem; }
 }
 
-/* Grid of the three departments on the homepage, each with its own voice */
+/* Grid of the departments on the homepage, each with its own voice */
 .dept-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
@@ -208,12 +210,16 @@ main { padding: 2.5rem 0 4rem; }
   transform: translateY(-6px);
   box-shadow: 0 14px 28px rgba(22, 35, 78, 0.18);
 }
-.dept-card--radio { animation-delay: 0s; }
-.dept-card--danza { animation-delay: 0.12s; }
+.dept-card--radio { animation-delay: 0.12s; }
+.dept-card--danza { animation-delay: 0.36s; }
 .dept-card--noticias { animation-delay: 0.24s; }
+.dept-card--eventos { animation-delay: 0s; }
+.dept-card--interes { animation-delay: 0.48s; }
 .dept-card--radio:hover { border-color: var(--blue); }
 .dept-card--danza:hover { border-color: var(--gold); }
 .dept-card--noticias:hover { border-color: var(--navy); }
+.dept-card--eventos:hover { border-color: var(--blush); }
+.dept-card--interes:hover { border-color: var(--sage); }
 
 @keyframes dept-card-in {
   from { opacity: 0; transform: translateY(18px); }
@@ -226,6 +232,8 @@ main { padding: 2.5rem 0 4rem; }
 .dept-card--radio { border-top: 4px solid var(--blue); }
 .dept-card--danza { border-top: 4px solid var(--gold); }
 .dept-card--noticias { border-top: 4px solid var(--navy); }
+.dept-card--eventos { border-top: 4px solid var(--blush); }
+.dept-card--interes { border-top: 4px solid var(--sage); }
 .dept-card h3 { font-size: 1.3rem; }
 .dept-card p { color: #4b4d52; font-size: 0.95rem; flex-grow: 1; }
 
@@ -253,6 +261,10 @@ main { padding: 2.5rem 0 4rem; }
   color: var(--navy);
   border: 1.5px solid var(--navy);
 }
+.btn--blush { background: var(--blush); color: var(--navy); }
+.btn--blush:hover { background: #c9a5af; }
+.btn--sage { background: var(--sage); color: #fff; }
+.btn--sage:hover { background: #567a5c; }
 .btn--ghost {
   background: transparent;
   color: var(--blue);
@@ -341,7 +353,7 @@ textarea { min-height: 120px; resize: vertical; }
 .news-item__media img, .news-item__media video { width: 100%; border: 1px solid var(--line); }
 .news-item__date { font-size: 0.78rem; color: #8a8c90; margin-top: 0.6rem; }
 
-/* ---------- DANZA Y TEATRO ---------- */
+/* ---------- GALERÍAS (Danza y Teatro, Eventos, Centros de interés) ---------- */
 .gallery-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -369,15 +381,47 @@ textarea { min-height: 120px; resize: vertical; }
 .login-panel p.tagline { text-align: center; color: #6b6d72; margin-bottom: 1.5rem; font-size: 0.9rem; }
 
 .admin-tabs {
-  display: flex; gap: 0.4rem; margin-bottom: 1.8rem; flex-wrap: wrap;
-  border-bottom: 1px solid var(--line);
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.9rem;
+  margin: 0 auto 2.2rem;
+  padding: 0;
+  border-bottom: none;
+  max-width: 900px;
 }
 .admin-tabs button {
-  background: none; border: none; padding: 0.8rem 1.1rem;
-  font-family: 'Fraunces', serif; font-size: 1.05rem; color: #6b6d72;
-  cursor: pointer; border-bottom: 3px solid transparent;
+  background: var(--paper-raised);
+  border: 1px solid var(--line);
+  border-top: 4px solid var(--line);
+  padding: 1rem 1.3rem;
+  min-width: 140px;
+  font-family: 'Fraunces', serif;
+  font-size: 1rem;
+  color: var(--ink);
+  cursor: pointer;
+  border-radius: var(--radius);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
 }
-.admin-tabs button.is-active { color: var(--navy); border-bottom-color: var(--blue); }
+.admin-tabs button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 20px rgba(22, 35, 78, 0.12);
+}
+.admin-tabs button.is-active {
+  color: var(--navy);
+  font-weight: 600;
+  border-top-color: var(--blue);
+  box-shadow: 0 10px 20px rgba(22, 35, 78, 0.12);
+}
+.admin-tabs button[data-tab="tab-eventos"].is-active { border-top-color: var(--blush); }
+.admin-tabs button[data-tab="tab-emisora"].is-active { border-top-color: var(--blue); }
+.admin-tabs button[data-tab="tab-noticias"].is-active { border-top-color: var(--navy); }
+.admin-tabs button[data-tab="tab-danza"].is-active { border-top-color: var(--gold); }
+.admin-tabs button[data-tab="tab-interes"].is-active { border-top-color: var(--sage); }
+@media (max-width: 700px) {
+  .admin-tabs { gap: 0.6rem; }
+  .admin-tabs button { min-width: calc(50% - 0.6rem); padding: 0.8rem; font-size: 0.9rem; }
+}
 .admin-panel { display: none; }
 .admin-panel.is-active { display: block; }
 
